@@ -20,6 +20,9 @@ repositories {
     mavenCentral()
 }
 
+
+
+
 graalvmNative {
     binaries {
         named("main") {
@@ -35,3 +38,5 @@ graalvmNative {
         }
     }
 }
+
+
