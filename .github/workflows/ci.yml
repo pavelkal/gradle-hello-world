@@ -31,8 +31,6 @@ jobs:
       # Reads appVersion from gradle.properties, increments the PATCH segment
       # (1.0.0 → 1.0.1 → 1.0.2 …), writes it back, and commits + pushes.
       - name: Bump patch version
-        if: github.ref == 'refs/heads/main'
-
               id: version
         run: |
           CURRENT=$(grep '^appVersion=' gradle.properties | cut -d'=' -f2)
@@ -50,7 +48,6 @@ jobs:
           echo "version=${NEW_VERSION}" >> "$GITHUB_OUTPUT"
 
       - name: Commit & push bumped version
-        if: github.ref == 'refs/heads/main'
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
