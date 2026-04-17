@@ -31,7 +31,7 @@ jobs:
       # Reads appVersion from gradle.properties, increments the PATCH segment
       # (1.0.0 → 1.0.1 → 1.0.2 …), writes it back, and commits + pushes.
       - name: Bump patch version
-              id: version
+        id: version
         run: |
           CURRENT=$(grep '^appVersion=' gradle.properties | cut -d'=' -f2)
           echo "Current version: $CURRENT"
