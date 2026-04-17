@@ -3,7 +3,7 @@ name: CI – Build, Package & Push Docker Image
 # ── Triggers ──────────────────────────────────────────────────────────────────
 on:
   push:
-    branches: [ "main", "ci-workflow-2" ]
+    branches: [ "main" ]
     # Ignore commits made by the pipeline itself (version bump commits)
     paths-ignore:
       - 'gradle.properties'   # handled separately via [skip ci] tag
@@ -116,19 +116,9 @@ jobs:
           docker push "${IMAGE}:latest"
 
       # ── 11. Smoke-test: pull & run the image ────────────────────────────────
-      # Verifies the pushed image actually works (task 5g).
+      # Verifies the pushed image actually works .
       - name: Run Docker image (smoke test)
         run: |
           IMAGE="${{ secrets.DOCKERHUB_USERNAME }}/gradle-hello-world"
           VERSION="${{ steps.version.outputs.version }}"
           docker run --rm "${IMAGE}:${VERSION}"
-
-      # ── 12. Print summary ────────────────────────────────────────────────────
-      - name: Job summary
-        run: |
-          echo "### ✅ Build complete" >> "$GITHUB_STEP_SUMMARY"
-          echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "| Key | Value |" >> "$GITHUB_STEP_SUMMARY"
-          echo "|-----|-------|" >> "$GITHUB_STEP_SUMMARY"
-          echo "| Version | \`${{ steps.version.outputs.version }}\` |" >> "$GITHUB_STEP_SUMMARY"
-          echo "| Docker image | \`${{ secrets.DOCKERHUB_USERNAME }}/gradle-hello-world:${{ steps.version.outputs.version }}\` |" >> "$GITHUB_STEP_SUMMARY"
