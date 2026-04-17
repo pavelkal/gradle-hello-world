@@ -14,14 +14,22 @@ plugins {
 group = "com.ido"
 description = "HelloWorld"
 
+// Version is read from gradle.properties (appVersion=x.y.z)
+// The CI pipeline automatically bumps the patch number before each build.
+version = project.property("appVersion") as String
+
 application.mainClass.set("com.ido.HelloWorld")
 
 repositories {
     mavenCentral()
 }
 
-
-
+// Give the shadow (fat) JAR a clean, version-stamped name
+tasks.shadowJar {
+    archiveBaseName.set("gradle-hello-world")
+    archiveClassifier.set("")
+    archiveVersion.set(version.toString())
+}
 
 graalvmNative {
     binaries {
@@ -38,5 +46,3 @@ graalvmNative {
         }
     }
 }
-
-
