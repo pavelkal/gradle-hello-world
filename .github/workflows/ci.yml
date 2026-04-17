@@ -3,7 +3,7 @@ name: CI – Build, Package & Push Docker Image
 # ── Triggers ──────────────────────────────────────────────────────────────────
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
     # Ignore commits made by the pipeline itself (version bump commits)
     paths-ignore:
       - 'gradle.properties'   # handled separately via [skip ci] tag
