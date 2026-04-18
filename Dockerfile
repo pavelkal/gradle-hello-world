@@ -9,11 +9,11 @@ WORKDIR /workspace
 
 # Copy only dependency-related files first so Docker can cache
 # the dependency-download layer separately from the source layer.
-COPY build.gradle.kts settings.gradle.kts* gradle.properties ./
+COPY build.gradle.kts gradle.properties ./
 COPY gradle ./gradle
 
 # Download dependencies (cached unless build files change)
-RUN gradle dependencies --no-daemon || true
+RUN gradle dependencies --no-daemon 
 
 # Now copy the actual source and build
 COPY src ./src
