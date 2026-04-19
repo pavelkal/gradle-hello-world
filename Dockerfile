@@ -15,9 +15,9 @@ RUN gu install native-image
 RUN ./gradlew nativeCompile --no-daemon
 
 # ─────────────────────────────────────────────
-# Stage 2 – RUNTIME (Alpine, no JVM needed)
+# Stage 2 – RUNTIME (Ubuntu, works on Windows Docker Desktop)
 # ─────────────────────────────────────────────
-FROM alpine:latest
+FROM ubuntu:22.04
 
 WORKDIR /app
 
@@ -27,5 +27,4 @@ COPY --from=builder /workspace/build/native/nativeCompile/helloworld .
 # Ensure executable permissions
 RUN chmod +x helloworld
 
-# Run the native binary
 ENTRYPOINT ["./helloworld"]
