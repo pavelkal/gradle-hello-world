@@ -19,6 +19,9 @@ RUN ./gradlew nativeCompile --no-daemon
 # ─────────────────────────────────────────────
 FROM ubuntu:22.04
 
+
+RUN useradd -m appuser
+
 WORKDIR /app
 
 # Copy the compiled native binary
@@ -26,5 +29,8 @@ COPY --from=builder /workspace/build/native/nativeCompile/helloworld .
 
 # Ensure executable permissions
 RUN chmod +x helloworld
+
+
+USER appuser
 
 ENTRYPOINT ["./helloworld"]
