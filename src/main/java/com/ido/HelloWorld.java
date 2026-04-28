@@ -6,6 +6,6 @@ package com.ido;
  
 public class HelloWorld {
     public static void main(String[] args) {
-        System.out.println("סיימת עם גיטלאס?");
+        System.out.println("adony siyamt im gitlab ????");
     }
 }
